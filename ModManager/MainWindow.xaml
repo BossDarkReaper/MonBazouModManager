@@ -1,0 +1,152 @@
+﻿<Window x:Class="ModManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ModManager"
+        xmlns:viewModel="clr-namespace:ModManager.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Height="550" Width="880"
+        MinHeight="550" MinWidth="880"
+        Background="#36393f"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.ColumnSpan="2"
+                Background="#252525"
+                MouseDown="OnMouseDown">
+
+            <Grid HorizontalAlignment="Stretch">
+                <Label Content="Mod Manager"
+                       Foreground="Gray"
+                       FontWeight="SemiBold" />
+
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+
+                    <Button Width="20" Height="20"
+                            Content="🗕"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Margin="0,0,0,3"
+                            Click="Minimize_OnClick" />
+
+                    <Button Width="20" Height="20"
+                            Content="□"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="Maximize_OnClick" />
+
+                    <Button Width="20" Height="20"
+                            Content="✕"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="Close_OnClick" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Background="#2F3136"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Menu"
+                   VerticalAlignment="Center"
+                   FontWeight="Medium"
+                   Foreground="Gray"
+                   Margin="8,0,0,0" />
+
+            <ListView ItemsSource="{Binding MainMenuItems}"
+                      SelectedItem="{Binding MainMenuSelectedItem}"
+                      SelectedIndex="0"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Grid.Row="1"
+                      ItemContainerStyle="{StaticResource MainMenuCard}" />
+
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        Background="#292b2f">
+
+                <Border CornerRadius="25"
+                        Width="30" Height="30"
+                        Background="{Binding VersionColour}"
+                        Margin="18,0,0,0" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <Label Content="{Binding VersionUpdateText}"
+                           Foreground="White"
+                           FontWeight="SemiBold"
+                           Margin="0,-5,0,-5" />
+
+                    <Label Content="{Binding VersionNumber}"
+                           Foreground="Gray"
+                           FontWeight="SemiBold"
+                           FontSize="10"
+                           Margin="0,-8,0,-5" />
+                </StackPanel>
+                
+                <Button Width="50" Height="30"
+                    Margin="10,0,0,0"
+                    Content="Update"
+                    Background="#393b40"
+                    BorderThickness="0"
+                    Foreground="White"
+                    Visibility="{Binding VersionUpdateButtonVisibility}"
+                    Click="Update_OnClick"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Border BorderBrush="#2f3136"
+                    BorderThickness="0,0,0,2">
+                <Grid HorizontalAlignment="Stretch"
+                      Margin="8">
+                    
+                    <Label Content="{Binding MainMenuSelectedItem.Title}"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="5,0,5,0"
+                           VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            
+            <ContentControl Grid.Row="1"
+                            Margin="10. 10, 10, 10"
+                            Content="{Binding MainMenuSelectedItem.View}"/>
+        </Grid>
+    </Grid>
+</Window>

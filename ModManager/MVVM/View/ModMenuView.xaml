@@ -1,0 +1,288 @@
+﻿<UserControl x:Class="ModManager.MVVM.View.ModMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ModManager"
+             xmlns:viewModel="clr-namespace:ModManager.MVVM.ViewModel"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="650"
+             Background="Transparent">
+
+    <UserControl.DataContext>
+        <viewModel:ModViewModel />
+    </UserControl.DataContext>
+
+    <Grid Background="#2F3136">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!-- Install BepInEx -->
+        <Grid Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Background="#2F3136"
+              Visibility="{Binding BepInExInstallVisibility}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="350" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Content="You need to install BepInEx. You cannot continue without it."
+                   Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+
+            <Button Content="Install"
+                    Grid.Row="1"
+                    Width="150" Height="75"
+                    Background="#393b40"
+                    BorderThickness="0"
+                    Foreground="White"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsEnabled="{Binding DisableBepInExInstallButton}"
+                    Command="{Binding InstallBepInExCommand}">
+            </Button>
+        </Grid>
+
+        <Border BorderBrush="#292b2f"
+                BorderThickness="0,0,1,2"
+                Visibility="{Binding ModsVisibility}">
+
+            <Grid Background="Transparent"
+                  Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border BorderBrush="#292b2f"
+                        BorderThickness="0,0,0,2">
+                    <Label Content="Mods"
+                           VerticalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="Gray"
+                           Margin="8,0,0,0" />
+                </Border>
+
+                <ListView ItemsSource="{Binding ModItems}"
+                          SelectedItem="{Binding ModSelectedItem}"
+                          SelectedIndex="0"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Grid.Row="1"
+                          ItemContainerStyle="{StaticResource ModItemCard}"/>
+
+                <!-- <StackPanel Grid.Row="2" -->
+                <!--             Orientation="Horizontal" -->
+                <!--             Background="#292b2f"> -->
+                <!-- -->
+                <!--     <Border CornerRadius="25" -->
+                <!--             Width="30" Height="30" -->
+                <!--             Background="{Binding VersionColour}" -->
+                <!--             Margin="18,0,0,0" /> -->
+                <!-- -->
+                <!--     <StackPanel VerticalAlignment="Center"> -->
+                <!--         <Label Content="{Binding VersionUpdateText}" -->
+                <!--                Foreground="White" -->
+                <!--                FontWeight="SemiBold" -->
+                <!--                Margin="0,-5,0,-5" /> -->
+                <!-- -->
+                <!--         <Label Content="{Binding VersionNumber}" -->
+                <!--                Foreground="Gray" -->
+                <!--                FontWeight="SemiBold" -->
+                <!--                FontSize="10" -->
+                <!--                Margin="0,-8,0,-5" /> -->
+                <!--     </StackPanel> -->
+                <!-- </StackPanel> -->
+            </Grid>
+        </Border>
+
+        <Grid Background="Transparent"
+              Grid.Row="0"
+              Grid.Column="1"
+              Visibility="{Binding ModsVisibility}">
+            <Border BorderBrush="#292b2f"
+                    BorderThickness="1,0,0,2">
+                <Grid Background="Transparent"
+                      Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="#292b2f"
+                            BorderThickness="0,0,0,2">
+                        <Label Content="Info"
+                               VerticalAlignment="Center"
+                               FontWeight="Medium"
+                               Foreground="Gray"
+                               Margin="8,0,0,0" />
+                    </Border>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Border BorderBrush="#292b2f"
+                                    BorderThickness="0,0,1,2">
+                                <Grid>
+                                    <Label Content="Name"
+                                           Foreground="White"
+                                           FontWeight="Bold" />
+                                    <Label Content="{Binding ModSelectedItem.Name}"
+                                           Foreground="Gray"
+                                           FontWeight="SemiBold"
+                                           Margin="0,15,0,0" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Border BorderBrush="#292b2f"
+                                    BorderThickness="0,0,1,2">
+                                <Grid>
+                                    <Label Content="Release Date"
+                                           Foreground="White"
+                                           FontWeight="Bold" />
+                                    <Label Content="{Binding ModSelectedItem.ReleaseDate}"
+                                           Foreground="Gray"
+                                           FontWeight="SemiBold"
+                                           Margin="0,15,0,0" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Border BorderBrush="#292b2f"
+                                    BorderThickness="0,0,1,2">
+                                <Grid>
+                                    <Label Content="Author"
+                                           Foreground="White"
+                                           FontWeight="Bold" />
+                                    <Label Content="{Binding ModSelectedItem.Author}"
+                                           Foreground="Gray"
+                                           FontWeight="SemiBold"
+                                           Margin="0,15,0,0" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Border BorderBrush="#292b2f"
+                                    BorderThickness="0,0,0,2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0"
+                                           Content="Mod Version"
+                                           Foreground="White"
+                                           FontWeight="Bold" />
+                                    <Label Grid.Column="0"
+                                           Content="{Binding ModSelectedItem.Version}"
+                                           Foreground="Gray"
+                                           FontWeight="SemiBold"
+                                           Margin="0,15,0,0" />
+
+                                    <Border Grid.Column="1"
+                                            BorderBrush="#292b2f"
+                                            BorderThickness="1,0,0,0">
+                                        <Grid>
+                                            <Label Content="Game Version"
+                                                   Foreground="White"
+                                                   FontWeight="Bold" />
+                                            <Label Content="{Binding ModSelectedItem.GameVersion}"
+                                                   Foreground="Gray"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,15,0,0" />
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                            <Label Content="Description"
+                                   Foreground="White"
+                                   FontWeight="Bold" />
+                            <StackPanel>
+                                <TextBlock Text="{Binding ModSelectedItem.Description}"
+                                           TextWrapping="WrapWithOverflow"
+                                           Foreground="Gray"
+                                           FontWeight="SemiBold"
+                                           Margin="5,25,5,0" />
+                                
+                                <TextBlock Text="{Binding ModSelectedItem.Reason}"
+                                           TextWrapping="WrapWithOverflow"
+                                           Foreground="Red"
+                                           FontWeight="Bold"
+                                           Margin="5,25,5,0" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="0"
+              Grid.Row="1"
+              Visibility="{Binding ModsVisibility}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Refresh"
+                    Background="#393b40"
+                    BorderThickness="0"
+                    Foreground="White"
+                    Height="50" Width="115"
+                    Command="{Binding RefreshModsCommand}" />
+        </Grid>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              Visibility="{Binding ModsVisibility}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="{Binding ModSelectedItemInstallText}"
+                    Background="#393b40"
+                    BorderThickness="0"
+                    Foreground="White"
+                    Height="50" Width="115"
+                    Command="{Binding InstallUninstallCommand}"
+                    Visibility="{Binding ModSelectedItemInstallButtonVisibility}"/>
+            
+            <Button Content="Open Config Folder"
+                    Grid.Column="1"
+                    Background="#393b40"
+                    BorderThickness="0"
+                    Foreground="White"
+                    Height="50" Width="115"
+                    Command="{Binding OpenConfigFolderCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>
