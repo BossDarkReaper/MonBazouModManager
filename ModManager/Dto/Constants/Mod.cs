@@ -2,5 +2,5 @@
 
 public class Mod
 {
-    public const string ModJsonUrl = "https://pastebin.com/raw/7e39LbqU";
+    public const string ModJsonUrl = "https://monbazou.level2studios.co.uk/mods/modDB.txt";
 }
