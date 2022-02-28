@@ -9,6 +9,10 @@
         <AssemblyOriginatorKeyFile>Level2Studios.snk</AssemblyOriginatorKeyFile>
         <PublicSign>false</PublicSign>
         <AssemblyName>MonBazouModManager</AssemblyName>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 
     <ItemGroup>
