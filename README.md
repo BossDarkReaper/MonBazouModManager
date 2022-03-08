@@ -2,6 +2,8 @@
 
 Mon Bazou Mod Manager is a mod manager for the game [Mon Bazou](https://store.steampowered.com/app/1520370/Mon_Bazou/)
 
+# Deprecated in favour of [Nexus Mods](https://www.nexusmods.com/monbazou/)
+
 ## Installation
 
 Download from the [releases](https://github.com/BossDarkReaper/MonBazouModManager/releases/)
